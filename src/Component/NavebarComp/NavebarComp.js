@@ -27,16 +27,33 @@ export default function NavebarComp() {
             <CssBaseline />
             <AppBar
                 position="fixed"
-                sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px`, backgroundColor: 'white' }}
+                sx={{
+                    width: {
+                        xs: '100%', // Full width for mobile
+                        md: `calc(100% - ${drawerWidth}px)`, // Width for desktop
+                    },
+                    ml: {
+                        xs: '0px', // No margin for mobile
+                        md: `${drawerWidth}px`, // Margin for desktop
+                    },
+                    backgroundColor: 'white',
+                }}
             >
-                <Toolbar>
+                <Toolbar sx={{ minHeight: { xs: '120px', md: '60px' } }}> {/* Responsive minHeight */}
                     <Typography variant="h6" noWrap component="div" style={{ width: "100%" }}>
                         <Grid container spacing={2} style={{ justifyContent: "space-between" }}>
-                            <Grid item xs={9}>
-                                <InputSearch bgcolor="rgb(248, 248, 248)" placeholder="Search User"/>
+                            <Grid item xs={12} md={2} sx={{ display: 'flex', alignItems: 'center', justifyContent: "space-between", order: { xs: 2, md: 2 } }}>
+                                <Box sx={{ display: { xs: 'flex', md: 'none' }, color: "black" }}>
+                                    Chat Box
+                                </Box>
+                                <UserDetail sx={{ display: { xs: 'none', md: 'flex' } }} />
                             </Grid>
-                            <Grid item xs={2}>
-                                <UserDetail />
+                            <Grid item xs={12} md={9} sx={{ order: { xs: 2, md: 1 } }}>
+                                <InputSearch
+                                    bgcolor="rgb(248, 248, 248)"
+                                    placeholder="Search User"
+                                    fullWidth // Ensure fullWidth is set for this component
+                                />
                             </Grid>
                         </Grid>
                     </Typography>
@@ -44,17 +61,24 @@ export default function NavebarComp() {
             </AppBar>
             <Drawer
                 sx={{
-                    width: drawerWidth,
+                    width: {
+                        xs: 60, // Width for mobile
+                        md: drawerWidth // Width for desktop
+                    },
+                    display: { xs: 'none', md: 'block' },
                     flexShrink: 0,
                     '& .MuiDrawer-paper': {
-                        width: drawerWidth,
+                        width: {
+                            xs: 60, // Paper width for mobile
+                            md: drawerWidth // Paper width for desktop
+                        },
                         boxSizing: 'border-box',
                     },
                 }}
                 variant="permanent"
                 anchor="left"
             >
-                <Toolbar sx={{ justifyContent: 'center' }} style={{ fontSize: "43px", fontWeight: "600" }}>Chat Box</Toolbar>
+                <Toolbar sx={{ justifyContent: 'center' }} style={{ fontSize: "20px", fontWeight: "600" }}>Chat</Toolbar>
                 <Divider />
                 <List>
                     {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
@@ -63,24 +87,28 @@ export default function NavebarComp() {
                                 <ListItemIcon>
                                     {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                                 </ListItemIcon>
-                                <ListItemText primary={text} />
+                                <ListItemText
+                                    sx={{
+                                        display: { xs: 'none', md: 'block' } // Hide text on mobile
+                                    }}
+                                    primary={text}
+                                />
                             </ListItemButton>
                         </ListItem>
                     ))}
                 </List>
                 <Divider />
             </Drawer>
-            {/* Uncomment and customize as needed */}
             <Box
                 component="main"
                 sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
             >
-                <Toolbar />
+                <Toolbar sx={{ minHeight: { xs: '120px', md: '60px' } }} />
                 <Grid container spacing={2} style={{ justifyContent: "space-between" }}>
-                    <Grid item xs={9}>
-                        <ChatWindow/>
+                    <Grid item xs={12} md={9}>
+                        <ChatWindow />
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={12} md={3} sx={{ display: { xs: 'none', md: 'block' } }}> {/* Hide on xs screens */}
                         <OldCheat />
                     </Grid>
                 </Grid>

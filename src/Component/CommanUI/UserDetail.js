@@ -4,20 +4,38 @@ import { Box, Typography, Tooltip } from '@mui/material';
 
 export default function UserDetail() {
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, md: 2 } }}>
       <Tooltip title="Create New" arrow>
-        <AddCircleOutlineOutlined style={{ color: "black", height: "31px", width: "31px" }} />
+        <AddCircleOutlineOutlined 
+          sx={{ 
+            color: "black", 
+            height: { xs: "24px", md: "31px" }, // Responsive height
+            width: { xs: "24px", md: "31px" }   // Responsive width
+          }} 
+        />
       </Tooltip>
       <Tooltip title="Notifications" arrow>
-        <Notifications style={{ color: "black", height: "31px", width: "31px" }} />
+        <Notifications 
+          sx={{ 
+            color: "black", 
+            height: { xs: "24px", md: "31px" }, // Responsive height
+            width: { xs: "24px", md: "31px" }   // Responsive width
+          }} 
+        />
       </Tooltip>
       <Tooltip title="Filters" arrow>
-        <FilterAlt style={{ color: "black", height: "31px", width: "31px" }} />
+        <FilterAlt 
+          sx={{ 
+            color: "black", 
+            height: { xs: "24px", md: "31px" }, // Responsive height
+            width: { xs: "24px", md: "31px" }   // Responsive width
+          }} 
+        />
       </Tooltip>
       <Box
         sx={{
-          width: 45,
-          height: 45,
+          width: { xs: 35, md: 45 }, // Responsive width
+          height: { xs: 35, md: 45 }, // Responsive height
           background: "gray",
           borderRadius: "50%",
           display: 'flex',
@@ -25,6 +43,7 @@ export default function UserDetail() {
           justifyContent: 'center',
           color: "white",
           fontWeight: 'bold',
+          fontSize: { xs: '0.75rem', md: '1rem' }, // Responsive font size
         }}
       >
         <Typography variant="body2">DG</Typography>

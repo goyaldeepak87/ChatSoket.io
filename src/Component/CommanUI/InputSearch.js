@@ -45,7 +45,14 @@ const InputSearch = (props) => {
             borderRadius: "10px", 
             "& .MuiOutlinedInput-root": {
               borderRadius: "10px",
-            }
+            },
+            "& input": {
+              fontSize: {
+                xs: '0.75rem',  // Font size for mobile (extra-small)
+                sm: '0.875rem',  // Font size for small screens
+                md: '1rem',      // Font size for medium screens
+              },
+            },
           }}
         />
       </FormControl>

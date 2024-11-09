@@ -19,7 +19,7 @@ export default function ChatList() {
 
             {/* Chat Items */}
             {Array.from({ length: 2 }, (_, index) => (
-                <List>
+                <List key={index}>
                     <ListItem>
                         <ListItemAvatar>
                             <Avatar src="/path-to-avatar.jpg" alt="Bob Marley" />
