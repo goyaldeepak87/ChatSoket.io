@@ -8,6 +8,7 @@ import SendIcon from '@mui/icons-material/Send';
 import CheckIcon from '@mui/icons-material/Check';
 import EmojiCopm from './EmojiCopm';
 import { io } from 'socket.io-client';
+import moment from 'moment';
 
 const socket = io('https://nodechatsoket-io-2.onrender.com'); // Adjust to your backend URL
 
@@ -24,12 +25,12 @@ export default function ChatWindow() {
     useEffect(() => {
         socket.on('connectionId', (id) => {
             setConnectionId(id);
-            console.log('Connection ID:', id);
+            // console.log('Connection ID:', id);
         });
 
         socket.on('message', (message) => {
             setMessages(prevMessages => [message, ...prevMessages]);
-            console.log('Received message:', message);
+            // console.log('Received message:', message);
         });
 
         return () => {
@@ -40,11 +41,13 @@ export default function ChatWindow() {
 
     const handleSendMessage = () => {
         if (inputText.trim()) {
-            socket.emit('user-message', inputText);
+            const timeSent = moment().format('hh:mm A');
+            const messageObject = { text: inputText, time: timeSent };
+            socket.emit('user-message', messageObject);
             setInputText(""); // Clear input after sending
         }
     };
-    console.log("ccxzcxzcz", messages)
+    // console.log("ccxzcxzcz", messages)
     return (
         <Box sx={{
             height: { xs: 'calc(100vh - 168px)', md: 'calc(100vh - 112px)' },
@@ -86,15 +89,15 @@ export default function ChatWindow() {
                 </Typography> */}
 
                 {messages.map((msg, index) => (
-                    <Box display="flex" justifyContent="flex-end" mb={1} >
+                    <Box key={index} display="flex" justifyContent="flex-end" mb={1} >
                         <Box sx={{ backgroundColor: '#c5a7ff', color: 'white', borderRadius: 2, padding: '8px 12px', maxWidth: '60%' }}>
 
                             {/* // <li key={index}></li> */}
-                            <Typography variant="body2" key={index}>{msg}</Typography>
+                            <Typography variant="body2" key={index}>{msg.text}</Typography>
 
                             {/* <Typography variant="body2"></Typography> */}
                             <Typography variant="caption" color="textSecondary" display="flex" alignItems="center">
-                                12:23 AM <CheckIcon sx={{ fontSize: 12, ml: 0.5 }} />
+                                {msg.time} <CheckIcon sx={{ fontSize: 12, ml: 0.5 }} />
                             </Typography>
                         </Box>
                     </Box>
